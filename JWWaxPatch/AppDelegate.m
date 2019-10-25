@@ -42,13 +42,15 @@
 //    [self creatPatchJson];
     [self loadPatch];
     
+    
     // Override point for customization after application launch.
     return YES;
 }
 - (void)creatPatchJson {
     NSString * RSAPublicKey = @"-----BEGIN PUBLIC KEY-----\nMIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCqxHPSIzY3FOf7LqvdTaP9KCd1\nwDoxc6L5NPO/L6g+SYr8TGwAOYCLHWW7bBZNeafRo6VoA1JR3w0xMhdFxqzdW4Gq\nQx66rneICftkc7jqzKN/1nDNX2kV2pf6RiXn0yaSbJOqw/X5xRdOtGOPLTD9/WmF\nFClR+GN4aHeAU79XHwIDAQAB\n-----END PUBLIC KEY-----";
     
-    NSData *zipData = [NSData dataWithContentsOfFile:[[NSBundle mainBundle]pathForResource:@"patch" ofType:@"zip"]];
+    
+    NSData *zipData = [NSData dataWithContentsOfFile:[[NSBundle mainBundle]pathForResource:@"init" ofType:@"zip"]];
     NSString *patchStr = [zipData base64EncodedStringWithOptions:NSDataBase64EncodingEndLineWithLineFeed];
     NSLog(@"patchStr---%@",patchStr);
     NSFileManager *fileManager = [NSFileManager defaultManager];
@@ -93,9 +95,9 @@
         NSDictionary *patchJson = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingAllowFragments error:nil];
         NSLog(@"patchjson---%@",patchJson);
         if ([[patchJson jsonString:@"version"] isEqualToString:[self AppVersion]]) {
-            NSString *patchstr = [RSATools decryptString:[patchJson jsonString:@"patch"] publicKey:RSAPrivateKey];
+            NSString *patchstr = [RSATools decryptString:[patchJson jsonString:@"patch"] privateKey:RSAPrivateKey];
             NSLog(@"patch str--%@",patchstr);
-            
+            [self loadPatchWithPatchString:patchstr];
         }else {
             NSLog(@"版本不符合");
         }
@@ -113,6 +115,25 @@
 //            wax_start("init.lua", nil);
 //
         }
+}
+- (void)loadPatchWithPatchString:(NSString *)patchStr {
+    NSData *myData = [[NSData alloc]initWithBase64EncodedString:patchStr options:NSDataBase64DecodingIgnoreUnknownCharacters];
+    NSString *doc = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+       
+       NSString *patchZip = [doc stringByAppendingPathComponent:@"init.zip"];
+       [myData writeToFile:patchZip atomically:YES];
+       
+       NSString *dir = [doc stringByAppendingPathComponent:@"lua"];
+       [[NSFileManager defaultManager] removeItemAtPath:dir error:NULL];
+       [[NSFileManager defaultManager] createDirectoryAtPath:dir withIntermediateDirectories:YES attributes:nil error:NULL];
+       
+       ZipArchive *zip = [[ZipArchive alloc] init];
+       [zip UnzipOpenFile:patchZip];
+       [zip UnzipFileTo:dir overWrite:YES];
+       
+       NSString *pp = [[NSString alloc ] initWithFormat:@"%@/?.lua;%@/?/init.lua;", dir, dir];
+       setenv(LUA_PATH, [pp UTF8String], 1);
+       wax_start("init.lua", nil);
 }
 - (NSString *)AppVersion {
     NSDictionary *infoDic = [[NSBundle mainBundle] infoDictionary];

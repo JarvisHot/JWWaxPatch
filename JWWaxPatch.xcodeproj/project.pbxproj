@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		256F9468FD324CC67A9D40EE /* Pods_JWWaxPatch.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 33964A1FD9510F6916D46F67 /* Pods_JWWaxPatch.framework */; };
 		633E1CFB2362E12A00979755 /* ViewController.lua in Resources */ = {isa = PBXBuildFile; fileRef = 633E1CFA2362E12A00979755 /* ViewController.lua */; };
-		633E1CFD2362F06700979755 /* patch.zip in Resources */ = {isa = PBXBuildFile; fileRef = 633E1CFC2362F06700979755 /* patch.zip */; };
+		633E1CFD2362F06700979755 /* init.zip in Resources */ = {isa = PBXBuildFile; fileRef = 633E1CFC2362F06700979755 /* init.zip */; };
 		633E1D0523630AFE00979755 /* NSDictionary+json.m in Sources */ = {isa = PBXBuildFile; fileRef = 633E1D0423630AFE00979755 /* NSDictionary+json.m */; };
 		63A70E252360418500599083 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 63A70E242360418500599083 /* AppDelegate.m */; };
 		63A70E282360418500599083 /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 63A70E272360418500599083 /* SceneDelegate.m */; };
@@ -112,7 +112,7 @@
 /* Begin PBXFileReference section */
 		33964A1FD9510F6916D46F67 /* Pods_JWWaxPatch.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_JWWaxPatch.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		633E1CFA2362E12A00979755 /* ViewController.lua */ = {isa = PBXFileReference; lastKnownFileType = text; path = ViewController.lua; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = "xcode.lang.module-map"; };
-		633E1CFC2362F06700979755 /* patch.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = patch.zip; sourceTree = "<group>"; };
+		633E1CFC2362F06700979755 /* init.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = init.zip; sourceTree = "<group>"; };
 		633E1D0323630AFE00979755 /* NSDictionary+json.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+json.h"; sourceTree = "<group>"; };
 		633E1D0423630AFE00979755 /* NSDictionary+json.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+json.m"; sourceTree = "<group>"; };
 		63A70E202360418500599083 /* JWWaxPatch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JWWaxPatch.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -337,7 +337,7 @@
 		63A70E222360418500599083 /* JWWaxPatch */ = {
 			isa = PBXGroup;
 			children = (
-				633E1CFC2362F06700979755 /* patch.zip */,
+				633E1CFC2362F06700979755 /* init.zip */,
 				633E1D0223630AFE00979755 /* tools */,
 				63DBF99D23629804006F436C /* ZipArchive */,
 				63DBF99723606376006F436C /* RSATool */,
@@ -769,7 +769,7 @@
 			files = (
 				63DBFA332362CB32006F436C /* init.lua in Resources */,
 				63DBFA172362A29D006F436C /* objc_runtime_lua.pkg in Resources */,
-				633E1CFD2362F06700979755 /* patch.zip in Resources */,
+				633E1CFD2362F06700979755 /* init.zip in Resources */,
 				63DBFA0A2362A29D006F436C /* Rakefile in Resources */,
 				633E1CFB2362E12A00979755 /* ViewController.lua in Resources */,
 				63DBFA1D2362A29D006F436C /* dispatch_lua.pkg in Resources */,
