@@ -29,7 +29,7 @@
         [[NSFileManager defaultManager] removeItemAtPath:dir error:NULL];
         [[NSFileManager defaultManager] createDirectoryAtPath:dir withIntermediateDirectories:YES attributes:nil error:NULL];
         
-        NSString *pp = [[NSString alloc ] initWithFormat:@"%@/?.lua;%@/?/init.lua;", dir, dir];
+        NSString *pp = [[NSString alloc ] initWithFormat:@"%@/patch/?.lua;%@/?/init.lua;", dir, dir];
         setenv(LUA_PATH, [pp UTF8String], 1);
     }
     return self;
@@ -39,13 +39,14 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
     [self.window makeKeyAndVisible];
-    [self creatPatchJson];
-//    [self loadPatch];
+//    [self creatPatchJson];
+    [self requestPatch];
     
     
     // Override point for customization after application launch.
     return YES;
 }
+// 创建patch文件，只有在上传的时候才需要
 - (void)creatPatchJson {
     NSString * RSAPublicKey = @"-----BEGIN PUBLIC KEY-----\nMIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCqxHPSIzY3FOf7LqvdTaP9KCd1\nwDoxc6L5NPO/L6g+SYr8TGwAOYCLHWW7bBZNeafRo6VoA1JR3w0xMhdFxqzdW4Gq\nQx66rneICftkc7jqzKN/1nDNX2kV2pf6RiXn0yaSbJOqw/X5xRdOtGOPLTD9/WmF\nFClR+GN4aHeAU79XHwIDAQAB\n-----END PUBLIC KEY-----";
     
@@ -70,7 +71,8 @@
     NSLog(@"主目录 = %@", home);
 
 }
-- (void)loadPatch {
+//拉去patch的zip文件
+- (void)requestPatch {
     
     NSString *RSAPrivateKey = @"-----BEGIN PRIVATE KEY-----\nMIICdQIBADANBgkqhkiG9w0BAQEFAASCAl8wggJbAgEAAoGBAKrEc9IjNjcU5/su\nq91No/0oJ3XAOjFzovk0878vqD5JivxMbAA5gIsdZbtsFk15p9GjpWgDUlHfDTEy\nF0XGrN1bgapDHrqud4gJ+2RzuOrMo3/WcM1faRXal/pGJefTJpJsk6rD9fnFF060\nY48tMP39aYUUKVH4Y3hod4BTv1cfAgMBAAECgYB+7ADBoNY83lcFhEzM8VX/ZQbf\nJ/6Ynr/0xXydDwjXMsYQe6SSDisSOslQIif5cYBf+meIBV/75fLiK77MZ7w2m2YY\ndw1o3w80vkjRxnQmI7OLBsXj7S67q5Z3cgg+JL2Zl7DKiJi0G7iikKbUIDnY9CjR\nJ97Q/pE3MLuDLyPGoQJBANOqci6LVfcAwcQNTtWBBV8iZ11/wgBhQlXu2PlYEce7\n1phFkRvGQTthgEyU9587le7eFkre0XPPTt0WHtKMikcCQQDOiQbsjMAxbMTV95YU\nP7ah+lE7LvuxgiamRlR584SOg4nSIJM42xzSrMlCPkJALQvnumEbjT5XufY39bx5\nwGBpAkAvRSVy15M/MmATlJVCgSnd8ST8cIe25gGWh1zVcqGl5YErSH37oe73f/LT\nJ4GVgg0d52M7HT/RiT6niUUg6FoJAkAz5DW7JTn8sQlbgRNSDxgB5nSWXB2c4ch4\nKl97LHX3oJD2HH0g4dyCCiue2ymmGitNk4RmebxaKjz0nmc2Z+FRAkAsg33dfDpH\n0yEMl7WxDoNkLcWf99Mq76bZZGDapvly0vGy8R1ThWRhP0dWJcLm3JIFHHE7W1Zr\nIlcp1unqlF/l\n-----END PRIVATE KEY-----";
     NSURL *patchUrl = [NSURL URLWithString:PATCH_URL];
@@ -101,21 +103,10 @@
         }else {
             NSLog(@"版本不符合");
         }
-//
-//            NSString *dir = [doc stringByAppendingPathComponent:@"lua"];
-//            [[NSFileManager defaultManager] removeItemAtPath:dir error:NULL];
-//            [[NSFileManager defaultManager] createDirectoryAtPath:dir withIntermediateDirectories:YES attributes:nil error:NULL];
-//
-//            ZipArchive *zip = [[ZipArchive alloc] init];
-//            [zip UnzipOpenFile:patchZip];
-//            [zip UnzipFileTo:dir overWrite:YES];
-//
-//            NSString *pp = [[NSString alloc ] initWithFormat:@"%@/?.lua;%@/?/init.lua;", dir, dir];
-//            setenv(LUA_PATH, [pp UTF8String], 1);
-//            wax_start("init.lua", nil);
-//
+
         }
 }
+//加载patch文件
 - (void)loadPatchWithPatchString:(NSString *)patchStr {
     NSData *myData = [[NSData alloc]initWithBase64EncodedString:patchStr options:NSDataBase64DecodingIgnoreUnknownCharacters];
     NSString *doc = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
@@ -131,7 +122,7 @@
        [zip UnzipOpenFile:patchZip];
        [zip UnzipFileTo:dir overWrite:YES];
        
-       NSString *pp = [[NSString alloc ] initWithFormat:@"%@/?.lua;%@/?/init.lua;", dir, dir];
+       NSString *pp = [[NSString alloc ] initWithFormat:@"%@/patch/?.lua;%@/?/init.lua;", dir, dir];
        setenv(LUA_PATH, [pp UTF8String], 1);
        wax_start("patch.lua", nil);
 }
