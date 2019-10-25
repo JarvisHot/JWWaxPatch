@@ -39,8 +39,8 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
     [self.window makeKeyAndVisible];
-//    [self creatPatchJson];
-    [self loadPatch];
+    [self creatPatchJson];
+//    [self loadPatch];
     
     
     // Override point for customization after application launch.
@@ -50,7 +50,7 @@
     NSString * RSAPublicKey = @"-----BEGIN PUBLIC KEY-----\nMIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCqxHPSIzY3FOf7LqvdTaP9KCd1\nwDoxc6L5NPO/L6g+SYr8TGwAOYCLHWW7bBZNeafRo6VoA1JR3w0xMhdFxqzdW4Gq\nQx66rneICftkc7jqzKN/1nDNX2kV2pf6RiXn0yaSbJOqw/X5xRdOtGOPLTD9/WmF\nFClR+GN4aHeAU79XHwIDAQAB\n-----END PUBLIC KEY-----";
     
     
-    NSData *zipData = [NSData dataWithContentsOfFile:[[NSBundle mainBundle]pathForResource:@"init" ofType:@"zip"]];
+    NSData *zipData = [NSData dataWithContentsOfFile:[[NSBundle mainBundle]pathForResource:@"patch" ofType:@"zip"]];
     NSString *patchStr = [zipData base64EncodedStringWithOptions:NSDataBase64EncodingEndLineWithLineFeed];
     NSLog(@"patchStr---%@",patchStr);
     NSFileManager *fileManager = [NSFileManager defaultManager];
@@ -120,7 +120,7 @@
     NSData *myData = [[NSData alloc]initWithBase64EncodedString:patchStr options:NSDataBase64DecodingIgnoreUnknownCharacters];
     NSString *doc = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
        
-       NSString *patchZip = [doc stringByAppendingPathComponent:@"init.zip"];
+       NSString *patchZip = [doc stringByAppendingPathComponent:@"patch.zip"];
        [myData writeToFile:patchZip atomically:YES];
        
        NSString *dir = [doc stringByAppendingPathComponent:@"lua"];
@@ -133,7 +133,7 @@
        
        NSString *pp = [[NSString alloc ] initWithFormat:@"%@/?.lua;%@/?/init.lua;", dir, dir];
        setenv(LUA_PATH, [pp UTF8String], 1);
-       wax_start("init.lua", nil);
+       wax_start("patch.lua", nil);
 }
 - (NSString *)AppVersion {
     NSDictionary *infoDic = [[NSBundle mainBundle] infoDictionary];

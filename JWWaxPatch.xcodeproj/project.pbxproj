@@ -9,8 +9,8 @@
 /* Begin PBXBuildFile section */
 		256F9468FD324CC67A9D40EE /* Pods_JWWaxPatch.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 33964A1FD9510F6916D46F67 /* Pods_JWWaxPatch.framework */; };
 		633E1CFB2362E12A00979755 /* ViewController.lua in Resources */ = {isa = PBXBuildFile; fileRef = 633E1CFA2362E12A00979755 /* ViewController.lua */; };
-		633E1CFD2362F06700979755 /* init.zip in Resources */ = {isa = PBXBuildFile; fileRef = 633E1CFC2362F06700979755 /* init.zip */; };
 		633E1D0523630AFE00979755 /* NSDictionary+json.m in Sources */ = {isa = PBXBuildFile; fileRef = 633E1D0423630AFE00979755 /* NSDictionary+json.m */; };
+		633E1D082363300F00979755 /* patch.zip in Resources */ = {isa = PBXBuildFile; fileRef = 633E1D072363300F00979755 /* patch.zip */; };
 		63A70E252360418500599083 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 63A70E242360418500599083 /* AppDelegate.m */; };
 		63A70E282360418500599083 /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 63A70E272360418500599083 /* SceneDelegate.m */; };
 		63A70E2B2360418500599083 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 63A70E2A2360418500599083 /* ViewController.m */; };
@@ -106,15 +106,15 @@
 		63DBFA2E2362A29D006F436C /* NSObject+TBIvarAccess.m in Sources */ = {isa = PBXBuildFile; fileRef = 63DBFA042362A29D006F436C /* NSObject+TBIvarAccess.m */; };
 		63DBFA2F2362A29D006F436C /* wax_xml.m in Sources */ = {isa = PBXBuildFile; fileRef = 63DBFA072362A29D006F436C /* wax_xml.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		63DBFA312362A465006F436C /* libxml2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 63DBFA302362A465006F436C /* libxml2.tbd */; };
-		63DBFA332362CB32006F436C /* init.lua in Resources */ = {isa = PBXBuildFile; fileRef = 63DBFA322362CB32006F436C /* init.lua */; };
+		63DBFA332362CB32006F436C /* patch.lua in Resources */ = {isa = PBXBuildFile; fileRef = 63DBFA322362CB32006F436C /* patch.lua */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		33964A1FD9510F6916D46F67 /* Pods_JWWaxPatch.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_JWWaxPatch.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		633E1CFA2362E12A00979755 /* ViewController.lua */ = {isa = PBXFileReference; lastKnownFileType = text; path = ViewController.lua; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = "xcode.lang.module-map"; };
-		633E1CFC2362F06700979755 /* init.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = init.zip; sourceTree = "<group>"; };
 		633E1D0323630AFE00979755 /* NSDictionary+json.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+json.h"; sourceTree = "<group>"; };
 		633E1D0423630AFE00979755 /* NSDictionary+json.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+json.m"; sourceTree = "<group>"; };
+		633E1D072363300F00979755 /* patch.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = patch.zip; sourceTree = "<group>"; };
 		63A70E202360418500599083 /* JWWaxPatch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JWWaxPatch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		63A70E232360418500599083 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		63A70E242360418500599083 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -287,7 +287,7 @@
 		63DBFA062362A29D006F436C /* wax_xml.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = wax_xml.h; sourceTree = "<group>"; };
 		63DBFA072362A29D006F436C /* wax_xml.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = wax_xml.m; sourceTree = "<group>"; };
 		63DBFA302362A465006F436C /* libxml2.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libxml2.tbd; path = usr/lib/libxml2.tbd; sourceTree = SDKROOT; };
-		63DBFA322362CB32006F436C /* init.lua */ = {isa = PBXFileReference; lastKnownFileType = text; path = init.lua; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = "xcode.lang.module-map"; };
+		63DBFA322362CB32006F436C /* patch.lua */ = {isa = PBXFileReference; lastKnownFileType = text; path = patch.lua; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = "xcode.lang.module-map"; };
 		936FE4895807098324B275D0 /* Pods-JWWaxPatch.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JWWaxPatch.release.xcconfig"; path = "Target Support Files/Pods-JWWaxPatch/Pods-JWWaxPatch.release.xcconfig"; sourceTree = "<group>"; };
 		FE38B5DCFCE455B0D3B7A084 /* Pods-JWWaxPatch.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JWWaxPatch.debug.xcconfig"; path = "Target Support Files/Pods-JWWaxPatch/Pods-JWWaxPatch.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -337,14 +337,14 @@
 		63A70E222360418500599083 /* JWWaxPatch */ = {
 			isa = PBXGroup;
 			children = (
-				633E1CFC2362F06700979755 /* init.zip */,
+				633E1D072363300F00979755 /* patch.zip */,
 				633E1D0223630AFE00979755 /* tools */,
 				63DBF99D23629804006F436C /* ZipArchive */,
 				63DBF99723606376006F436C /* RSATool */,
 				63DBF8A623606115006F436C /* wax */,
 				63A70E232360418500599083 /* AppDelegate.h */,
 				63A70E242360418500599083 /* AppDelegate.m */,
-				63DBFA322362CB32006F436C /* init.lua */,
+				63DBFA322362CB32006F436C /* patch.lua */,
 				633E1CFA2362E12A00979755 /* ViewController.lua */,
 				63A70E262360418500599083 /* SceneDelegate.h */,
 				63A70E272360418500599083 /* SceneDelegate.m */,
@@ -767,9 +767,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				63DBFA332362CB32006F436C /* init.lua in Resources */,
+				63DBFA332362CB32006F436C /* patch.lua in Resources */,
 				63DBFA172362A29D006F436C /* objc_runtime_lua.pkg in Resources */,
-				633E1CFD2362F06700979755 /* init.zip in Resources */,
+				633E1D082363300F00979755 /* patch.zip in Resources */,
 				63DBFA0A2362A29D006F436C /* Rakefile in Resources */,
 				633E1CFB2362E12A00979755 /* ViewController.lua in Resources */,
 				63DBFA1D2362A29D006F436C /* dispatch_lua.pkg in Resources */,
