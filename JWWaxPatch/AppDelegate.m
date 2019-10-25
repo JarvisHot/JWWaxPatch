@@ -39,8 +39,8 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
     [self.window makeKeyAndVisible];
-    [self creatPatchJson];
-//    [self loadPatch];
+//    [self creatPatchJson];
+    [self loadPatch];
     
     // Override point for customization after application launch.
     return YES;
@@ -53,7 +53,7 @@
     NSLog(@"patchStr---%@",patchStr);
     NSFileManager *fileManager = [NSFileManager defaultManager];
     //创建一个文件并且写入数据
-    NSString *home = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+    NSString *home = NSTemporaryDirectory();
     NSString *path = [home stringByAppendingPathComponent:@"patch.json"];
     NSFileHandle *filehandler;
     if ([fileManager fileExistsAtPath:path]) {
@@ -94,7 +94,7 @@
         NSLog(@"patchjson---%@",patchJson);
         if ([[patchJson jsonString:@"version"] isEqualToString:[self AppVersion]]) {
             NSString *patchstr = [RSATools decryptString:[patchJson jsonString:@"patch"] publicKey:RSAPrivateKey];
-            NSLog(@"patch str--%@",[patchJson jsonString:@"patch"]);
+            NSLog(@"patch str--%@",patchstr);
             
         }else {
             NSLog(@"版本不符合");
