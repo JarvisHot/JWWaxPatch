@@ -3,14 +3,12 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		256F9468FD324CC67A9D40EE /* Pods_JWWaxPatch.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 33964A1FD9510F6916D46F67 /* Pods_JWWaxPatch.framework */; };
-		633E1CFB2362E12A00979755 /* ViewController.lua in Resources */ = {isa = PBXBuildFile; fileRef = 633E1CFA2362E12A00979755 /* ViewController.lua */; };
 		633E1D0523630AFE00979755 /* NSDictionary+json.m in Sources */ = {isa = PBXBuildFile; fileRef = 633E1D0423630AFE00979755 /* NSDictionary+json.m */; };
-		633E1D082363300F00979755 /* patch.zip in Resources */ = {isa = PBXBuildFile; fileRef = 633E1D072363300F00979755 /* patch.zip */; };
 		63A70E252360418500599083 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 63A70E242360418500599083 /* AppDelegate.m */; };
 		63A70E282360418500599083 /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 63A70E272360418500599083 /* SceneDelegate.m */; };
 		63A70E2B2360418500599083 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 63A70E2A2360418500599083 /* ViewController.m */; };
@@ -106,15 +104,17 @@
 		63DBFA2E2362A29D006F436C /* NSObject+TBIvarAccess.m in Sources */ = {isa = PBXBuildFile; fileRef = 63DBFA042362A29D006F436C /* NSObject+TBIvarAccess.m */; };
 		63DBFA2F2362A29D006F436C /* wax_xml.m in Sources */ = {isa = PBXBuildFile; fileRef = 63DBFA072362A29D006F436C /* wax_xml.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		63DBFA312362A465006F436C /* libxml2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 63DBFA302362A465006F436C /* libxml2.tbd */; };
-		63DBFA332362CB32006F436C /* patch.lua in Resources */ = {isa = PBXBuildFile; fileRef = 63DBFA322362CB32006F436C /* patch.lua */; };
+		63E6CDDE2368349F002D3284 /* JWPatchTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 63E6CDDD2368349F002D3284 /* JWPatchTool.m */; };
+		63E6CDE723686D66002D3284 /* MyViewController.lua in Resources */ = {isa = PBXBuildFile; fileRef = 63E6CDE423686D66002D3284 /* MyViewController.lua */; };
+		63E6CDE823686D66002D3284 /* ViewController.lua in Resources */ = {isa = PBXBuildFile; fileRef = 63E6CDE523686D66002D3284 /* ViewController.lua */; };
+		63E6CDE923686D66002D3284 /* patch.lua in Resources */ = {isa = PBXBuildFile; fileRef = 63E6CDE623686D66002D3284 /* patch.lua */; };
+		63E6CDEB23686D70002D3284 /* patch.zip in Resources */ = {isa = PBXBuildFile; fileRef = 63E6CDEA23686D70002D3284 /* patch.zip */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		33964A1FD9510F6916D46F67 /* Pods_JWWaxPatch.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_JWWaxPatch.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		633E1CFA2362E12A00979755 /* ViewController.lua */ = {isa = PBXFileReference; lastKnownFileType = text; path = ViewController.lua; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = "xcode.lang.module-map"; };
 		633E1D0323630AFE00979755 /* NSDictionary+json.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+json.h"; sourceTree = "<group>"; };
 		633E1D0423630AFE00979755 /* NSDictionary+json.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+json.m"; sourceTree = "<group>"; };
-		633E1D072363300F00979755 /* patch.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = patch.zip; sourceTree = "<group>"; };
 		63A70E202360418500599083 /* JWWaxPatch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JWWaxPatch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		63A70E232360418500599083 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		63A70E242360418500599083 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -287,7 +287,14 @@
 		63DBFA062362A29D006F436C /* wax_xml.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = wax_xml.h; sourceTree = "<group>"; };
 		63DBFA072362A29D006F436C /* wax_xml.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = wax_xml.m; sourceTree = "<group>"; };
 		63DBFA302362A465006F436C /* libxml2.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libxml2.tbd; path = usr/lib/libxml2.tbd; sourceTree = SDKROOT; };
-		63DBFA322362CB32006F436C /* patch.lua */ = {isa = PBXFileReference; lastKnownFileType = text; path = patch.lua; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = "xcode.lang.module-map"; };
+		63E6CDDC2368349F002D3284 /* JWPatchTool.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JWPatchTool.h; sourceTree = "<group>"; };
+		63E6CDDD2368349F002D3284 /* JWPatchTool.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JWPatchTool.m; sourceTree = "<group>"; };
+		63E6CDDF23683D73002D3284 /* liblua.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = liblua.a; path = ../../../../usr/local/lib/liblua.a; sourceTree = "<group>"; };
+		63E6CDE1236844C5002D3284 /* AFNetworking.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = AFNetworking.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		63E6CDE423686D66002D3284 /* MyViewController.lua */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = MyViewController.lua; sourceTree = "<group>"; };
+		63E6CDE523686D66002D3284 /* ViewController.lua */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ViewController.lua; sourceTree = "<group>"; };
+		63E6CDE623686D66002D3284 /* patch.lua */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = patch.lua; sourceTree = "<group>"; };
+		63E6CDEA23686D70002D3284 /* patch.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = patch.zip; sourceTree = "<group>"; };
 		936FE4895807098324B275D0 /* Pods-JWWaxPatch.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JWWaxPatch.release.xcconfig"; path = "Target Support Files/Pods-JWWaxPatch/Pods-JWWaxPatch.release.xcconfig"; sourceTree = "<group>"; };
 		FE38B5DCFCE455B0D3B7A084 /* Pods-JWWaxPatch.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JWWaxPatch.debug.xcconfig"; path = "Target Support Files/Pods-JWWaxPatch/Pods-JWWaxPatch.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -312,6 +319,8 @@
 			children = (
 				633E1D0323630AFE00979755 /* NSDictionary+json.h */,
 				633E1D0423630AFE00979755 /* NSDictionary+json.m */,
+				63E6CDDC2368349F002D3284 /* JWPatchTool.h */,
+				63E6CDDD2368349F002D3284 /* JWPatchTool.m */,
 			);
 			path = tools;
 			sourceTree = "<group>";
@@ -337,15 +346,14 @@
 		63A70E222360418500599083 /* JWWaxPatch */ = {
 			isa = PBXGroup;
 			children = (
-				633E1D072363300F00979755 /* patch.zip */,
+				63E6CDEA23686D70002D3284 /* patch.zip */,
+				63E6CDE323686D66002D3284 /* patch */,
 				633E1D0223630AFE00979755 /* tools */,
 				63DBF99D23629804006F436C /* ZipArchive */,
 				63DBF99723606376006F436C /* RSATool */,
 				63DBF8A623606115006F436C /* wax */,
 				63A70E232360418500599083 /* AppDelegate.h */,
 				63A70E242360418500599083 /* AppDelegate.m */,
-				63DBFA322362CB32006F436C /* patch.lua */,
-				633E1CFA2362E12A00979755 /* ViewController.lua */,
 				63A70E262360418500599083 /* SceneDelegate.h */,
 				63A70E272360418500599083 /* SceneDelegate.m */,
 				63A70E292360418500599083 /* ViewController.h */,
@@ -688,9 +696,21 @@
 			path = xml;
 			sourceTree = "<group>";
 		};
+		63E6CDE323686D66002D3284 /* patch */ = {
+			isa = PBXGroup;
+			children = (
+				63E6CDE423686D66002D3284 /* MyViewController.lua */,
+				63E6CDE523686D66002D3284 /* ViewController.lua */,
+				63E6CDE623686D66002D3284 /* patch.lua */,
+			);
+			path = patch;
+			sourceTree = "<group>";
+		};
 		95C45ED3C71B5C6EE902D0B7 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				63E6CDE1236844C5002D3284 /* AFNetworking.framework */,
+				63E6CDDF23683D73002D3284 /* liblua.a */,
 				63DBFA302362A465006F436C /* libxml2.tbd */,
 				63DBF9B22362A173006F436C /* CoreGraphics.framework */,
 				63DBF9AF23629F95006F436C /* libxml2.2.tbd */,
@@ -720,6 +740,7 @@
 				63A70E1C2360418500599083 /* Sources */,
 				63A70E1D2360418500599083 /* Frameworks */,
 				63A70E1E2360418500599083 /* Resources */,
+				9876924B464D53EABEE61658 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -767,18 +788,19 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				63DBFA332362CB32006F436C /* patch.lua in Resources */,
 				63DBFA172362A29D006F436C /* objc_runtime_lua.pkg in Resources */,
-				633E1D082363300F00979755 /* patch.zip in Resources */,
 				63DBFA0A2362A29D006F436C /* Rakefile in Resources */,
-				633E1CFB2362E12A00979755 /* ViewController.lua in Resources */,
 				63DBFA1D2362A29D006F436C /* dispatch_lua.pkg in Resources */,
+				63E6CDE823686D66002D3284 /* ViewController.lua in Resources */,
 				63DBFA182362A29D006F436C /* pthread.pkg in Resources */,
+				63E6CDE923686D66002D3284 /* patch.lua in Resources */,
 				63DBFA082362A29D006F436C /* yajl-1.0.9.tar.gz in Resources */,
 				63A70E332360418700599083 /* LaunchScreen.storyboard in Resources */,
 				63DBFA1A2362A29D006F436C /* UIKitFunction.pkg in Resources */,
 				63A70E302360418700599083 /* Assets.xcassets in Resources */,
 				63A70E2E2360418500599083 /* Main.storyboard in Resources */,
+				63E6CDEB23686D70002D3284 /* patch.zip in Resources */,
+				63E6CDE723686D66002D3284 /* MyViewController.lua in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -805,6 +827,23 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		9876924B464D53EABEE61658 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-JWWaxPatch/Pods-JWWaxPatch-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-JWWaxPatch/Pods-JWWaxPatch-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-JWWaxPatch/Pods-JWWaxPatch-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -865,6 +904,7 @@
 				63DBFA2B2362A29D006F436C /* wax_block_transfer_pool.m in Sources */,
 				63DBF96523606115006F436C /* lbaselib.c in Sources */,
 				63DBFA2E2362A29D006F436C /* NSObject+TBIvarAccess.m in Sources */,
+				63E6CDDE2368349F002D3284 /* JWPatchTool.m in Sources */,
 				63DBF94E23606115006F436C /* liolib.c in Sources */,
 				63A70E362360418700599083 /* main.m in Sources */,
 				63DBF99623606115006F436C /* wax_struct.m in Sources */,
@@ -1039,17 +1079,21 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				FRAMEWORK_SEARCH_PATHS = "";
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				HEADER_SEARCH_PATHS = "${SDK_ROOT}/usr/include/libxml2";
 				INFOPLIST_FILE = JWWaxPatch/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				LIBRARY_SEARCH_PATHS = "";
+				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = jiang.JWWaxPatch;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
+				USER_HEADER_SEARCH_PATHS = "";
+				VALID_ARCHS = "arm64e armv7 armv7s arm64";
 			};
 			name = Debug;
 		};
@@ -1059,17 +1103,21 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				FRAMEWORK_SEARCH_PATHS = "";
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				HEADER_SEARCH_PATHS = "${SDK_ROOT}/usr/include/libxml2";
 				INFOPLIST_FILE = JWWaxPatch/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				LIBRARY_SEARCH_PATHS = "";
+				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = jiang.JWWaxPatch;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
+				USER_HEADER_SEARCH_PATHS = "";
+				VALID_ARCHS = "arm64e armv7 armv7s arm64";
 			};
 			name = Release;
 		};

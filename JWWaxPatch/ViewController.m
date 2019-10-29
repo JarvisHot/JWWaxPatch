@@ -17,7 +17,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     NSLog(@"原方法");
-    
+//    UIButton
+//    self dismissViewControllerAnimated:<#(BOOL)#> completion:<#^(void)completion#>
+//    self presentViewController:<#(nonnull UIViewController *)#> animated:<#(BOOL)#> completion:<#^(void)completion#>
     // Do any additional setup after loading the view.
 }
 

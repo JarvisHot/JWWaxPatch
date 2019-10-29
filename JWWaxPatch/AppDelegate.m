@@ -7,13 +7,9 @@
 //
 
 #import "AppDelegate.h"
-#import "lauxlib.h"
-#import "wax.h"
-#import "ZipArchive.h"
-#import "RSATools.h"
-#import "NSDictionary+json.h"
-
+#import "JWPatchTool.h"
 #define PATCH_URL @"https://github.com/JarvisHot/JWWaxPatch/blob/master/patch.json.zip?raw=true"
+#import "lauxlib.h"
 
 @interface AppDelegate ()
 
@@ -24,11 +20,11 @@
 - (id)init {
     if(self = [super init]) {
         NSString *doc = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
-        
+
         NSString *dir = [doc stringByAppendingPathComponent:@"lua"];
         [[NSFileManager defaultManager] removeItemAtPath:dir error:NULL];
         [[NSFileManager defaultManager] createDirectoryAtPath:dir withIntermediateDirectories:YES attributes:nil error:NULL];
-        
+
         NSString *pp = [[NSString alloc ] initWithFormat:@"%@/patch/?.lua;%@/?/init.lua;", dir, dir];
         setenv(LUA_PATH, [pp UTF8String], 1);
     }
@@ -40,97 +36,18 @@
     
     [self.window makeKeyAndVisible];
 //    [self creatPatchJson];
-    [self requestPatch];
+   NSString * fileStr = [JWPatchTool creatPatchJson];
+    NSLog(@"file str---%@",fileStr);
+//    [JWPatchTool requestPatchWithUrl:PATCH_URL];
+   
+//    [[JWPatchTool sharedInstance]loadLocalPatchWithFileName:"patch.lua"];
     
     
     // Override point for customization after application launch.
     return YES;
 }
-// 创建patch文件，只有在上传的时候才需要
-- (void)creatPatchJson {
-    NSString * RSAPublicKey = @"-----BEGIN PUBLIC KEY-----\nMIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCqxHPSIzY3FOf7LqvdTaP9KCd1\nwDoxc6L5NPO/L6g+SYr8TGwAOYCLHWW7bBZNeafRo6VoA1JR3w0xMhdFxqzdW4Gq\nQx66rneICftkc7jqzKN/1nDNX2kV2pf6RiXn0yaSbJOqw/X5xRdOtGOPLTD9/WmF\nFClR+GN4aHeAU79XHwIDAQAB\n-----END PUBLIC KEY-----";
-    
-    
-    NSData *zipData = [NSData dataWithContentsOfFile:[[NSBundle mainBundle]pathForResource:@"patch" ofType:@"zip"]];
-    NSString *patchStr = [zipData base64EncodedStringWithOptions:NSDataBase64EncodingEndLineWithLineFeed];
-    NSLog(@"patchStr---%@",patchStr);
-    NSFileManager *fileManager = [NSFileManager defaultManager];
-    //创建一个文件并且写入数据
-    NSString *home = NSTemporaryDirectory();
-    NSString *path = [home stringByAppendingPathComponent:@"patch.json"];
-    NSFileHandle *filehandler;
-    if ([fileManager fileExistsAtPath:path]) {
-        filehandler = [NSFileHandle fileHandleForUpdatingAtPath:path];
-    }else{
-        [fileManager createFileAtPath:path contents:nil attributes:nil];
-        filehandler = [NSFileHandle fileHandleForWritingAtPath:path];
-    }
-    NSDictionary *dic = @{@"version":[self AppVersion],@"patch":[RSATools encryptString:patchStr publicKey:RSAPublicKey]};
-    [filehandler writeData:[NSJSONSerialization dataWithJSONObject:dic options:NSJSONWritingFragmentsAllowed error:nil]];
-    
-    NSLog(@"主目录 = %@", home);
+// 测试本地patch文件
 
-}
-//拉去patch的zip文件
-- (void)requestPatch {
-    
-    NSString *RSAPrivateKey = @"-----BEGIN PRIVATE KEY-----\nMIICdQIBADANBgkqhkiG9w0BAQEFAASCAl8wggJbAgEAAoGBAKrEc9IjNjcU5/su\nq91No/0oJ3XAOjFzovk0878vqD5JivxMbAA5gIsdZbtsFk15p9GjpWgDUlHfDTEy\nF0XGrN1bgapDHrqud4gJ+2RzuOrMo3/WcM1faRXal/pGJefTJpJsk6rD9fnFF060\nY48tMP39aYUUKVH4Y3hod4BTv1cfAgMBAAECgYB+7ADBoNY83lcFhEzM8VX/ZQbf\nJ/6Ynr/0xXydDwjXMsYQe6SSDisSOslQIif5cYBf+meIBV/75fLiK77MZ7w2m2YY\ndw1o3w80vkjRxnQmI7OLBsXj7S67q5Z3cgg+JL2Zl7DKiJi0G7iikKbUIDnY9CjR\nJ97Q/pE3MLuDLyPGoQJBANOqci6LVfcAwcQNTtWBBV8iZ11/wgBhQlXu2PlYEce7\n1phFkRvGQTthgEyU9587le7eFkre0XPPTt0WHtKMikcCQQDOiQbsjMAxbMTV95YU\nP7ah+lE7LvuxgiamRlR584SOg4nSIJM42xzSrMlCPkJALQvnumEbjT5XufY39bx5\nwGBpAkAvRSVy15M/MmATlJVCgSnd8ST8cIe25gGWh1zVcqGl5YErSH37oe73f/LT\nJ4GVgg0d52M7HT/RiT6niUUg6FoJAkAz5DW7JTn8sQlbgRNSDxgB5nSWXB2c4ch4\nKl97LHX3oJD2HH0g4dyCCiue2ymmGitNk4RmebxaKjz0nmc2Z+FRAkAsg33dfDpH\n0yEMl7WxDoNkLcWf99Mq76bZZGDapvly0vGy8R1ThWRhP0dWJcLm3JIFHHE7W1Zr\nIlcp1unqlF/l\n-----END PRIVATE KEY-----";
-    NSURL *patchUrl = [NSURL URLWithString:PATCH_URL];
-    NSData *data = [NSURLConnection sendSynchronousRequest:[NSURLRequest requestWithURL:patchUrl] returningResponse:NULL error:NULL];
-    if(data) {
-        NSLog(@"load data----%@",data);
-            NSString *result =[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-        NSString *str = [data base64EncodedStringWithOptions:NSDataBase64EncodingEndLineWithLineFeed];
-            NSLog(@"result----%@",str);
-        //先解压data
-        NSData *patchJsonData =[[NSData alloc]initWithBase64EncodedString:str options:NSDataBase64DecodingIgnoreUnknownCharacters];
-
-//
-            NSString *doc = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
-
-            NSString *patchjsonZip = [doc stringByAppendingPathComponent:@"patch.json.zip"];
-            [patchJsonData writeToFile:patchjsonZip atomically:YES];
-        ZipArchive *zip = [[ZipArchive alloc]init];
-        [zip UnzipOpenFile:patchjsonZip];
-        [zip UnzipFileTo:doc overWrite:YES];
-        NSData *jsonData = [NSData dataWithContentsOfFile:[doc stringByAppendingPathComponent:@"patch.json"]];
-        NSDictionary *patchJson = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingAllowFragments error:nil];
-        NSLog(@"patchjson---%@",patchJson);
-        if ([[patchJson jsonString:@"version"] isEqualToString:[self AppVersion]]) {
-            NSString *patchstr = [RSATools decryptString:[patchJson jsonString:@"patch"] privateKey:RSAPrivateKey];
-            NSLog(@"patch str--%@",patchstr);
-            [self loadPatchWithPatchString:patchstr];
-        }else {
-            NSLog(@"版本不符合");
-        }
-
-        }
-}
-//加载patch文件
-- (void)loadPatchWithPatchString:(NSString *)patchStr {
-    NSData *myData = [[NSData alloc]initWithBase64EncodedString:patchStr options:NSDataBase64DecodingIgnoreUnknownCharacters];
-    NSString *doc = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
-       
-       NSString *patchZip = [doc stringByAppendingPathComponent:@"patch.zip"];
-       [myData writeToFile:patchZip atomically:YES];
-       
-       NSString *dir = [doc stringByAppendingPathComponent:@"lua"];
-       [[NSFileManager defaultManager] removeItemAtPath:dir error:NULL];
-       [[NSFileManager defaultManager] createDirectoryAtPath:dir withIntermediateDirectories:YES attributes:nil error:NULL];
-       
-       ZipArchive *zip = [[ZipArchive alloc] init];
-       [zip UnzipOpenFile:patchZip];
-       [zip UnzipFileTo:dir overWrite:YES];
-       
-       NSString *pp = [[NSString alloc ] initWithFormat:@"%@/patch/?.lua;%@/?/init.lua;", dir, dir];
-       setenv(LUA_PATH, [pp UTF8String], 1);
-       wax_start("patch.lua", nil);
-}
-- (NSString *)AppVersion {
-    NSDictionary *infoDic = [[NSBundle mainBundle] infoDictionary];
-    return [infoDic objectForKey:@"CFBundleShortVersionString"];
-    
-}
 #pragma mark - UISceneSession lifecycle
 
 
