@@ -13,6 +13,8 @@
 #import "RSATools.h"
 #import "NSDictionary+json.h"
 #import <AFNetworking/AFNetworking.h>
+#import "ViewController.h"
+#import "AppDelegate.h"
 
 #define PATCH_URL @"https://github.com/JarvisHot/JWWaxPatch/blob/master/patch.json.zip?raw=true"
 
@@ -24,45 +26,20 @@ const
 
 @implementation JWPatchTool
 
-static JWPatchTool *PatchTool = nil;
 + (void)extracted {
     NSString *doc = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
     
-    NSString *dir = [doc stringByAppendingPathComponent:@"lua"];
-    [[NSFileManager defaultManager] removeItemAtPath:dir error:NULL];
-    [[NSFileManager defaultManager] createDirectoryAtPath:dir withIntermediateDirectories:YES attributes:nil error:NULL];
+    NSString *dir = [doc stringByAppendingPathComponent:@"patch"];
+//    [[NSFileManager defaultManager] removeItemAtPath:dir error:NULL];
+//    [[NSFileManager defaultManager] createDirectoryAtPath:dir withIntermediateDirectories:YES attributes:nil error:NULL];
     
-    NSString *pp = [[NSString alloc ] initWithFormat:@"%@/patch/?.lua;%@/?/init.lua;", dir, dir];
+    NSString *pp = [[NSString alloc ] initWithFormat:@"%@/?.lua;%@/?/init.lua;", dir, dir];
     setenv(LUA_PATH, [pp UTF8String], 1);
 }
 
-+ (JWPatchTool *)sharedInstance {
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        if (PatchTool == nil) {
-            PatchTool = [[self alloc] init];
-            
-        }
-    });
-//    [self extracted];
-    return PatchTool;
-}
 
-+ (instancetype)allocWithZone:(struct _NSZone *)zone {
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        if (PatchTool == nil) {
-            PatchTool = [super allocWithZone:zone];
-        }
-    });
-    return PatchTool;
-}
-
-- (instancetype)copyWithZone:(NSZone *)zone {
-    return PatchTool;
-}
-
-- (void)loadLocalPatchWithFileName:(char *)fileName {
++ (void)loadLocalPatchWithFileName:(char *)fileName {
+    [self extracted];
     wax_start(fileName, nil);
 }
 
@@ -89,10 +66,40 @@ static JWPatchTool *PatchTool = nil;
     return path;
 
 }
-+ (void)requestPatchWithUrl:(NSString *)urlStr {
-    /* 创建网络下载对象 */
-//    [[self class]extracted];
-    AFURLSessionManager *manager = [[AFURLSessionManager alloc] initWithSessionConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
++ (void)requestPatchWithUrl:(NSString *)urlStr AndRootViewController:(UIViewController*)rootVC {
+
+
+//    NSData *data = [NSURLConnection sendSynchronousRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:urlStr]] returningResponse:NULL error:NULL];
+//    if (data) {
+//        /* 下载路径 */
+//        NSString *doc = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+//
+//        NSString *patchjsonZip = [doc stringByAppendingPathComponent:@"patch.json.zip"];
+//        [data writeToFile:patchjsonZip atomically:YES];
+//        ZipArchive *zip = [[ZipArchive alloc]init];
+//                [zip UnzipOpenFile:patchjsonZip];
+//                [zip UnzipFileTo:doc overWrite:YES];
+//                NSData *jsonData = [NSData dataWithContentsOfFile:[doc stringByAppendingPathComponent:@"patch.json"]];
+//                NSDictionary *patchJson = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingAllowFragments error:nil];
+//                NSLog(@"主目录 = %@", doc);
+//        //        NSLog(@"patchjson---%@",patchJson);
+//
+//                if ([[patchJson jsonString:@"version"] isEqualToString:[self AppVersion]]) {
+//                    NSString *patchstr = [RSATools decryptString:[patchJson jsonString:@"patch"] privateKey:RSAPrivateKey];
+////                    NSLog(@"patch str--%@",patchstr);
+//
+//
+//                        [self loadPatchWithPatchString:patchstr];
+//
+//
+//                }else {
+//                    NSLog(@"版本不符合");
+//                }
+//    }
+//    return;
+    
+   
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     /* 下载地址 */
     NSURL *url = [NSURL URLWithString:urlStr];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
@@ -100,43 +107,48 @@ static JWPatchTool *PatchTool = nil;
     NSString *doc = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
 
     NSString *patchjsonZip = [doc stringByAppendingPathComponent:@"patch.json.zip"];
+    [[NSFileManager defaultManager]removeItemAtPath:patchjsonZip error:nil];
     /* 开始请求下载 */
     NSURLSessionDownloadTask *downloadTask = [manager downloadTaskWithRequest:request progress:^(NSProgress * _Nonnull downloadProgress) {
         NSLog(@"下载进度：%.0f％", downloadProgress.fractionCompleted * 100);
+        
+        
     } destination:^NSURL * _Nonnull(NSURL * _Nonnull targetPath, NSURLResponse * _Nonnull response) {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            //如果需要进行UI操作，需要获取主线程进行操作
-        });
-        /* 设定下载到的位置 */
+        
+        
         return [NSURL fileURLWithPath:patchjsonZip];
                 
     } completionHandler:^(NSURLResponse * _Nonnull response, NSURL * _Nullable filePath, NSError * _Nullable error) {
-         NSLog(@"下载完成");
-        ZipArchive *zip = [[ZipArchive alloc]init];
-        [zip UnzipOpenFile:patchjsonZip];
-        [zip UnzipFileTo:doc overWrite:YES];
-        NSData *jsonData = [NSData dataWithContentsOfFile:[doc stringByAppendingPathComponent:@"patch.json"]];
-        NSDictionary *patchJson = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingAllowFragments error:nil];
-        NSLog(@"主目录 = %@", doc);
-        NSLog(@"patchjson---%@",patchJson);
         
-        if ([[patchJson jsonString:@"version"] isEqualToString:[self AppVersion]]) {
-            NSString *patchstr = [RSATools decryptString:[patchJson jsonString:@"patch"] privateKey:RSAPrivateKey];
-            NSLog(@"patch str--%@",patchstr);
-            dispatch_async(dispatch_get_main_queue(), ^{
-                //如果需要进行UI操作，需要获取主线程进行操作
-                [self loadPatchWithPatchString:patchstr];
-            });
-            
-        }else {
-            NSLog(@"版本不符合");
+         NSLog(@"下载进程结束");
+        if (error==nil) {
+            ZipArchive *zip = [[ZipArchive alloc]init];
+                    [zip UnzipOpenFile:patchjsonZip];
+                    [zip UnzipFileTo:doc overWrite:YES];
+            [zip UnzipCloseFile];
+                    NSData *jsonData = [NSData dataWithContentsOfFile:[doc stringByAppendingPathComponent:@"patch.json"]];
+                    NSDictionary *patchJson = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingAllowFragments error:nil];
+                    NSLog(@"主目录 = %@", doc);
+            //        NSLog(@"patchjson---%@",patchJson);
+                    
+                    if ([[patchJson jsonString:@"version"] isEqualToString:[self AppVersion]]) {
+                        NSString *patchstr = [RSATools decryptString:[patchJson jsonString:@"patch"] privateKey:RSAPrivateKey];
+            //            NSLog(@"patch str--%@",patchstr);
+                            [self loadPatchWithPatchString:patchstr root:rootVC];
+                    
+                            
+                    }else {
+                        NSLog(@"版本不符合");
+                    }
         }
+        
          
     }];
      [downloadTask resume];
+    
 }
 //加载patch文件
-+ (void)loadPatchWithPatchString:(NSString *)patchStr {
++ (void)loadPatchWithPatchString:(NSString *)patchStr root:(UIViewController *)root {
     
     NSData *myData = [[NSData alloc]initWithBase64EncodedString:patchStr options:NSDataBase64DecodingIgnoreUnknownCharacters];
     NSString *doc = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
@@ -144,17 +156,26 @@ static JWPatchTool *PatchTool = nil;
        NSString *patchZip = [doc stringByAppendingPathComponent:@"patch.zip"];
        [myData writeToFile:patchZip atomically:YES];
        
-       NSString *dir = [doc stringByAppendingPathComponent:@"lua"];
+       NSString *dir = [doc stringByAppendingPathComponent:@"patch"];
        [[NSFileManager defaultManager] removeItemAtPath:dir error:NULL];
-       [[NSFileManager defaultManager] createDirectoryAtPath:dir withIntermediateDirectories:YES attributes:nil error:NULL];
-       
+//       [[NSFileManager defaultManager] createDirectoryAtPath:dir withIntermediateDirectories:YES attributes:nil error:NULL];
+    
        ZipArchive *zip = [[ZipArchive alloc] init];
        [zip UnzipOpenFile:patchZip];
-       [zip UnzipFileTo:dir overWrite:YES];
+    if ([zip UnzipFileTo:doc overWrite:YES]) {
+        
+        
+            NSString *pp = [[NSString alloc ] initWithFormat:@"%@/?.lua;%@/?/init.lua;", dir, dir];
+            setenv(LUA_PATH, [pp UTF8String], 1);
+            wax_start("patch.lua", nil);
+            AppDelegate *app = (AppDelegate *)[UIApplication sharedApplication].delegate;
+        app.window.rootViewController = root;
+            [app.window makeKeyAndVisible];
+        }
        
-       NSString *pp = [[NSString alloc ] initWithFormat:@"%@/patch/?.lua;%@/?/init.lua;", dir, dir];
-       setenv(LUA_PATH, [pp UTF8String], 1);
-       wax_start("patch.lua", nil);
+       
+       
+   
 }
 
 + (NSString *)AppVersion {

@@ -4,5 +4,6 @@ use_frameworks!
 
 target 'JWWaxPatch' do
 pod 'AFNetworking'
+
  
 end
